@@ -1,0 +1,7 @@
+{
+    "packages": {
+        "main": []
+    },
+    "required_user_toolchain_values": [],
+    "shared_toolchain_files": []
+}

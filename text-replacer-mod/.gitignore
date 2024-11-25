@@ -1,0 +1,24 @@
+# File Types:
+*.d
+*.o
+*.elf
+*.bin
+*.exe
+*.dll
+*.lib
+*.pdb
+*.exp
+*.pyc
+
+# Files
+./funcs.h
+patches.map
+.vscode/tasks.json
+.vscode/launch.json
+.vscode/settings.json
+
+# Directories
+build/
+generated/
+tools/
+runtime/

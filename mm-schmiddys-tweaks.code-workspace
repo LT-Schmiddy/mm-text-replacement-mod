@@ -1,0 +1,23 @@
+{
+	"folders": [
+		{
+			"path": "text-replacer-lib"
+		},
+		{
+			"path": "text-replacer-mod"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"cjson.h": "c",
+			"iostream": "cpp",
+			"permanent_razor_sword.h": "c",
+			"chrono": "cpp",
+			"tweak_globals.h": "c",
+			"global.h": "c",
+			"z_file_select.h": "c",
+			"z64view.h": "c",
+			"disable_letterbox.h": "c"
+		}
+	}
+}

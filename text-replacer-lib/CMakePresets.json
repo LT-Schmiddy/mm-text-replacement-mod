@@ -1,0 +1,19 @@
+{
+    "version": 2,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 0,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "mct-default",
+            "displayName": "MCT Default Config",
+            "generator": "Ninja",
+            "description": "Default build using vcpkg and Ninja generator",
+            "binaryDir": "${sourceDir}/build",
+            "cacheVariables": {}
+        }
+    ],
+    "buildPresets": []
+}
