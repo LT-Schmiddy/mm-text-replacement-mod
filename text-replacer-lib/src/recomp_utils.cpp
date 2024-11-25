@@ -15,6 +15,17 @@ RECOMP_DLL_FUNC(text_replacer_on_load) {
     _return(ctx, (s32) 1);
 }
 
+RECOMP_DLL_FUNC(text_replacer_set_char_in_buffer) {
+    set_char_in_buffer(_arg<0, char>(rdram, ctx), _arg<1, uint32_t>(rdram, ctx));
+    _return(ctx, (s32) 1);
+}
+
+RECOMP_DLL_FUNC(text_replacer_add_buffer_as_entry) {
+    add_buffer_as_entry(_arg<0, uint32_t>(rdram, ctx), _arg<1, uint32_t>(rdram, ctx));
+    _return(ctx, (s32) 1);
+}
+
+
 RECOMP_DLL_FUNC(text_replacer_on_shutdown) {
     lib_shutdown();
     _return(ctx, (s32) 1);

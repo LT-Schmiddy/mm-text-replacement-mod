@@ -29,7 +29,7 @@ dependencies = [
 native_libraries = [
 # Example native library:
 #    { name = "my_native_library", funcs = ["my_native_library_function"] }
-   { name = "text-replacer-lib", funcs = ["text_replacer_on_load", "text_replacer_on_shutdown"] }
+   { name = "text-replacer-lib", funcs = ["text_replacer_on_load", "text_replacer_on_shutdown", "text_replacer_set_char_in_buffer", "text_replacer_add_buffer_as_entry"] }
 ]
 
 # Inputs to the mod tool.
