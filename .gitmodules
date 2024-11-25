@@ -1,10 +1,10 @@
 [submodule "text-replacer-mod/Zelda64RecompSyms"]
 	path = text-replacer-mod/Zelda64RecompSyms
 	url = https://github.com/Zelda64Recomp/Zelda64RecompSyms
-[submodule "text-replacer-mod/mm"]
-	path = text-replacer-mod/mm
-	url = https://github.com/zeldaret/mm
 [submodule "text-replacer-mod/N64Recomp"]
 	path = text-replacer-mod/N64Recomp
 	url = https://github.com/N64Recomp/N64Recomp.git
 
+[submodule "mmd"]
+	path = text-replacer-mod/mm-decomp
+	url = https://github.com/zeldaret/mm
