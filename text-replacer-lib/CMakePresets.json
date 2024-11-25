@@ -12,8 +12,95 @@
             "generator": "Ninja",
             "description": "Default build using vcpkg and Ninja generator",
             "binaryDir": "${sourceDir}/build",
-            "cacheVariables": {}
+            "cacheVariables": {
+                "CMAKE_TOOLCHAIN_FILE": "./vcpkg/scripts/buildsystems/vcpkg.cmake"
+            }
+        },        
+        {
+            "name": "x64-windows",
+            "inherits": [
+                "mct-default"
+            ],
+            "displayName": "x64-windows",
+            "description": "MCT Configure Preset for x64-windows",
+            "binaryDir": "${sourceDir}/build/x64-windows",
+            "cacheVariables": {
+                "VCPKG_TARGET_TRIPLET": "x64-windows"
+            }
+        },
+        {
+            "name": "x64-windows-Debug",
+            "inherits": [
+                "x64-windows"
+            ],
+            "displayName": "x64-windows-Debug",
+            "description": "MCT Configure Preset for x64-windows-Debug",
+            "binaryDir": "${sourceDir}/build/x64-windows-Debug",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "x64-windows-Release",
+            "inherits": [
+                "x64-windows"
+            ],
+            "displayName": "x64-windows-Release",
+            "description": "MCT Configure Preset for x64-windows-Release",
+            "binaryDir": "${sourceDir}/build/x64-windows-Release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "x64-windows-RelWithDebInfo",
+            "inherits": [
+                "x64-windows"
+            ],
+            "displayName": "x64-windows-RelWithDebInfo",
+            "description": "MCT Configure Preset for x64-windows-RelWithDebInfo",
+            "binaryDir": "${sourceDir}/build/x64-windows-RelWithDebInfo",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+            }
+        },
+        {
+            "name": "x64-windows-MinSizeRel",
+            "inherits": [
+                "x64-windows"
+            ],
+            "displayName": "x64-windows-MinSizeRel",
+            "description": "MCT Configure Preset for x64-windows-MinSizeRel",
+            "binaryDir": "${sourceDir}/build/x64-windows-MinSizeRel",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "MinSizeRel"
+            }
         }
     ],
-    "buildPresets": []
+    "buildPresets": [
+        {
+            "name": "x64-windows-Debug",
+            "displayName": "x64-windows-Debug",
+            "description": "MCT Build Preset for x64-windows-Debug",
+            "configurePreset": "x64-windows-Debug"
+        },
+        {
+            "name": "x64-windows-Release",
+            "displayName": "x64-windows-Release",
+            "description": "MCT Build Preset for x64-windows-Release",
+            "configurePreset": "x64-windows-Release"
+        },
+        {
+            "name": "x64-windows-RelWithDebInfo",
+            "displayName": "x64-windows-RelWithDebInfo",
+            "description": "MCT Build Preset for x64-windows-RelWithDebInfo",
+            "configurePreset": "x64-windows-RelWithDebInfo"
+        },
+        {
+            "name": "x64-windows-MinSizeRel",
+            "displayName": "x64-windows-MinSizeRel",
+            "description": "MCT Build Preset for x64-windows-MinSizeRel",
+            "configurePreset": "x64-windows-MinSizeRel"
+        }
+    ]
 }

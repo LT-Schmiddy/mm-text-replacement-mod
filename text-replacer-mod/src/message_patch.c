@@ -1,8 +1,12 @@
 #include "tweak_globals.h"
 #include "message_patch.h"
-char* idk = "I'm a dumb-dumb!\x17";
-
 void Message_OpenText(PlayState* play, u16 textId);
+
+RECOMP_IMPORT(".", void text_replacer_on_load());
+
+RECOMP_CALLBACK("*", recomp_on_init) void load_lib () {
+    text_replacer_on_load();
+}
 
 RECOMP_PATCH void Message_StartTextbox(PlayState* play, u16 textId, Actor* actor) {
     MessageContext* msgCtx = &play->msgCtx;
