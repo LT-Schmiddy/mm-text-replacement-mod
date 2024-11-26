@@ -14,6 +14,8 @@
 namespace ns = nlohmann;
 
 namespace global {
+    bool dumping_enabled = false;
+
     fs::path dump_path;
     ns::json text_table;
 
