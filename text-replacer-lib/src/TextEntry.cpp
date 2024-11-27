@@ -74,7 +74,7 @@ template <typename T> bool TextEntry::load_json_attr(ns::json& data, std::string
         (*attr) = data[name].get<T>();
         return true;
     } else {
-        std::cerr << "ERROR: attribute '" << name << "' is missing from text entry '" << to_hex(&message_id, sizeof(uint16_t)) << "'.\n";
+        std::cerr << "ERROR: attribute '" << name << "' is missing from text entry '" << utils::to_hex(&message_id, sizeof(uint16_t)) << "'.\n";
         std::cerr << "Default value used instead.\n";
         return false;
     }

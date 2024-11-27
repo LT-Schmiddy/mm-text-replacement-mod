@@ -14,7 +14,7 @@ void set_char_in_buffer(char c, uint32_t pos) {
 void add_buffer_as_entry(uint32_t id, uint32_t len) {
     TextEntry entry(id, global::message_buffer, len);
 
-    global::text_table[to_hex((char*)&id, 2)] = entry.to_json();
+    global::text_table[utils::to_hex((char*)&id, 2)] = entry.to_json();
 
     save_entries_json();
 }
