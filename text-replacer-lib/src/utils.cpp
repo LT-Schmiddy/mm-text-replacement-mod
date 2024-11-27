@@ -5,6 +5,7 @@
 
 static char const _hex[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
+namespace text_replacer_lib::utils {
 bool is_ascii(char c) {
     // if (static_cast<unsigned char>(c) < 31 || static_cast<unsigned char>(c) > 127) {
     if (static_cast<unsigned char>(c) < 31 || static_cast<unsigned char>(c) > 127) {
@@ -79,4 +80,5 @@ fs::path get_lib_path() {
     }
 
     return fs::path(path);
+}
 }

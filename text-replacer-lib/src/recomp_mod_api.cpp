@@ -6,27 +6,42 @@
 // #include <assert.h>
 
 #include "./lib_main.hpp"
+#include "./dumping.hpp"
 #include "./recomp_mod_api.hpp"
 
 RECOMP_EXPORT extern "C" uint32_t recomp_api_version = RECOMP_API_VERSION;
 
-RECOMP_DLL_FUNC(text_replacer_on_load) {
-    lib_startup();
-    _return(ctx, (s32) 1);
+RECOMP_DLL_FUNC(text_replacer_lib_startup) {
+    text_replacer_lib::startup();
+    RECOMP_RETURN(s32, 1);
 }
 
-RECOMP_DLL_FUNC(text_replacer_set_char_in_buffer) {
-    set_char_in_buffer(_arg<0, char>(rdram, ctx), _arg<1, uint32_t>(rdram, ctx));
-    _return(ctx, (s32) 1);
+// Dumping:
+RECOMP_DLL_FUNC(text_replacer_lib_set_char_in_buffer) {
+    text_replacer_lib::dumping::set_char_in_buffer(RECOMP_ARG(0, char), RECOMP_ARG(1, uint32_t));
+    RECOMP_RETURN(s32, 1);
 }
 
-RECOMP_DLL_FUNC(text_replacer_add_buffer_as_entry) {
-    add_buffer_as_entry(_arg<0, uint32_t>(rdram, ctx), _arg<1, uint32_t>(rdram, ctx));
-    _return(ctx, (s32) 1);
+RECOMP_DLL_FUNC(text_replacer_lib_add_buffer_as_entry) {
+    text_replacer_lib::dumping::add_buffer_as_entry(_arg<0, uint32_t>(rdram, ctx), _arg<1, uint32_t>(rdram, ctx));
+    RECOMP_RETURN(s32, 1);
 }
 
+// Replacing:
+RECOMP_DLL_FUNC(text_replacer_lib_has_replacement) {
+    RECOMP_RETURN(s32, 1);
+}
 
-RECOMP_DLL_FUNC(text_replacer_on_shutdown) {
-    lib_shutdown();
-    _return(ctx, (s32) 1);
+RECOMP_DLL_FUNC(text_replacer_lib_prepare_replacement) {
+    RECOMP_RETURN(s32, 1);
+}
+
+RECOMP_DLL_FUNC(text_replacer_lib_get_replacement_char) {
+    RECOMP_RETURN(s32, 1);
+}
+
+// Shutdown
+RECOMP_DLL_FUNC(text_replacer_lib_shutdown) {
+    text_replacer_lib::shutdown();
+    RECOMP_RETURN(s32, 1);
 }

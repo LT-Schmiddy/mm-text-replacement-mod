@@ -5,6 +5,7 @@
 
 #include "utils.hpp"
 
+namespace text_replacer_lib {
 class TextEntry {
 public:
     TextEntry(uint16_t p_message_id, char* p_message_buffer, int p_len);
@@ -31,3 +32,4 @@ private:
 
 
 };
+}

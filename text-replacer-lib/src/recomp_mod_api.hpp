@@ -41,6 +41,8 @@ extern "C" {
 }
 
 #define RECOMP_DLL_FUNC(_f_name) extern "C" RECOMP_DLL_C_FUNC(_f_name)
+#define RECOMP_ARG(_pos, _type) _arg<_pos, _type>(rdram, ctx)
+#define RECOMP_RETURN(_type, _value) _return(ctx, (_type) _value)
 
 template<int index, typename T>
 inline T _arg(uint8_t* rdram, recomp_context* ctx) {

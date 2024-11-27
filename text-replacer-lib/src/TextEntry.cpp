@@ -1,6 +1,7 @@
 #include <bit>
 #include "TextEntry.hpp"
 
+namespace text_replacer_lib {
 TextEntry::TextEntry(uint16_t p_message_id, char* p_message_buffer, int p_len) {
     message_id = p_message_id;
     
@@ -17,12 +18,12 @@ TextEntry::TextEntry(uint16_t p_message_id, char* p_message_buffer, int p_len) {
     for (int i = MESSAGE_HEADER_SIZE; i < p_len; i++) {
         char c = p_message_buffer[i];
         // if(c != '\0') {
-        if(is_ascii(c)) {
+        if(utils::is_ascii(c)) {
             char c_str[2] = {c, '\0'};
             content.append(c_str);
         
         } else {
-            content.append("[" + to_hex(&c, 1) + "]");
+            content.append("[" + utils::to_hex(&c, 1) + "]");
         }
     }
 }
@@ -62,7 +63,7 @@ bool TextEntry::check_json_attr(ns::json* data, std::string name){
     if(data->contains(name)) {
         return true;
     } else {
-        std::cerr << "ERROR: attribute '" << name << "' is missing from text entry '" << to_hex(&message_id, sizeof(uint16_t)) << "'.\n";
+        std::cerr << "ERROR: attribute '" << name << "' is missing from text entry '" << utils::to_hex(&message_id, sizeof(uint16_t)) << "'.\n";
         std::cerr << "Default value used instead.\n";
         return false;
     }
@@ -77,4 +78,5 @@ template <typename T> bool TextEntry::load_json_attr(ns::json& data, std::string
         std::cerr << "Default value used instead.\n";
         return false;
     }
+}
 }

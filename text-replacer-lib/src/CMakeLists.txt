@@ -1,6 +1,8 @@
 target_sources(
     ${TARGET_NAME}
     PUBLIC
+    "./dumping.hpp"
+    "./dumping.cpp"
     "./lib_main.cpp"
     "./lib_main.hpp"
     "./recomp_mod_api.cpp"
