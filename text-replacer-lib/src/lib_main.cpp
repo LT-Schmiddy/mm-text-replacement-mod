@@ -16,7 +16,7 @@
 namespace text_replacer_lib {
 void startup() {
     std::cout << "Hello from text-replacer-lib!\n";
-    global::dump_path = get_lib_path().parent_path().append("text_dump.json");
+    global::dump_path = utils::get_lib_path().parent_path().append("text_dump.json");
     std::cout << global::dump_path.string().c_str() << "\n";
 
     global::text_table = ns::json();
