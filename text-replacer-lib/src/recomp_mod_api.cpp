@@ -5,6 +5,7 @@
 // #include <stdlib.h>
 // #include <assert.h>
 
+#include "./globals.hpp"
 #include "./lib_main.hpp"
 #include "./dumping.hpp"
 #include "./recomp_mod_api.hpp"
@@ -17,12 +18,16 @@ RECOMP_DLL_FUNC(text_replacer_lib_startup) {
 }
 
 // Dumping:
-RECOMP_DLL_FUNC(text_replacer_lib_set_char_in_buffer) {
+RECOMP_DLL_FUNC(text_replacer_lib_dumping_enabled) {
+    RECOMP_RETURN(s32, global::settings.dumping_enabled);
+}
+
+RECOMP_DLL_FUNC(text_replacer_lib_dumping_set_char_in_buffer) {
     text_replacer_lib::dumping::set_char_in_buffer(RECOMP_ARG(0, char), RECOMP_ARG(1, uint32_t));
     RECOMP_RETURN(s32, 1);
 }
 
-RECOMP_DLL_FUNC(text_replacer_lib_add_buffer_as_entry) {
+RECOMP_DLL_FUNC(text_replacer_lib_dumping_add_buffer_as_entry) {
     text_replacer_lib::dumping::add_buffer_as_entry(_arg<0, uint32_t>(rdram, ctx), _arg<1, uint32_t>(rdram, ctx));
     RECOMP_RETURN(s32, 1);
 }

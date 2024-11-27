@@ -4,9 +4,12 @@
 #include <map>
 #include "utils.hpp"
 #include "TextEntry.hpp"
+#include "settings.hpp"
 namespace global {
-    // Dumping
-    inline bool dumping_enabled = false;
+    inline fs::path settings_path;
+    inline text_replacer_lib::Settings settings;
+    
+    // Dumping:
     inline fs::path dump_path;
     inline ns::json dump_table;
 

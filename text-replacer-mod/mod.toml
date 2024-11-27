@@ -31,8 +31,9 @@ native_libraries = [
 #    { name = "my_native_library", funcs = ["my_native_library_function"] }
    { name = "text-replacer-lib", funcs = ["text_replacer_lib_startup",
                                           "text_replacer_lib_shutdown",
-                                          "text_replacer_lib_set_char_in_buffer",
-                                          "text_replacer_lib_add_buffer_as_entry",
+                                          "text_replacer_lib_dumping_enabled",
+                                          "text_replacer_lib_dumping_set_char_in_buffer",
+                                          "text_replacer_lib_dumping_add_buffer_as_entry",
                                           "text_replacer_lib_has_replacement",
                                           "text_replacer_lib_prepare_replacement",
                                           "text_replacer_lib_get_replacement_char"

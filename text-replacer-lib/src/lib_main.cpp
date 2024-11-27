@@ -11,6 +11,7 @@
 #include "recomp_mod_api.hpp"
 #include "utils.hpp"
 #include "TextEntry.hpp"
+#include "settings.hpp"
 #include "lib_main.hpp"
 
 namespace text_replacer_lib {
@@ -19,10 +20,15 @@ void startup() {
     // Gets us out of the mods folder:
     global::game_data_dir = utils::get_lib_path().parent_path().parent_path();
 
-    global::dump_path = fs::path(global::game_data_dir).append("text_dump.json");
-    std::cout << global::dump_path.string().c_str() << "\n";
+    // Loading settings:
+    global::settings_path = fs::path(global::game_data_dir).append("text_replacer_settings.json");
+    load_settings(&global::settings, global::settings_path);
 
-    global::dialog_replacement_dir = fs::path(global::game_data_dir).append("dialog_replacement");;
+    // Setting dump path for text replacement.
+    global::dump_path = fs::path(global::game_data_dir).append("text_dump.json");
+
+    // Processing text replacement files:
+    global::dialog_replacement_dir = fs::path(global::game_data_dir).append("text_replacement");;
     if (!fs::exists(global::dialog_replacement_dir)) {
         std::cout << global::dialog_replacement_dir.string().c_str() << "\n";
         fs::create_directory(global::dialog_replacement_dir);
