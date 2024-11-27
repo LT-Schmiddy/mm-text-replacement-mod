@@ -4,6 +4,7 @@
 #include <filesystem>
 #include <exception>
 #include <iomanip>
+#include <map>
 
 #include "recomp_mod_api.hpp"
 #include "utils.hpp"
@@ -19,6 +20,8 @@ namespace global {
     ns::json text_table;
 
     char message_buffer[MESSAGE_BUFFER_SIZE];
+
+    std::map<uint16_t, TextEntry> text_map;
 }
 
 void lib_startup() {

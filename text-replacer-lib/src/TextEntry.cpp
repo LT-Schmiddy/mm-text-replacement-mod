@@ -45,7 +45,7 @@ ns::json TextEntry::to_json() {
     retVal["text_box_type"] = text_box_type;
     retVal["text_box_y_pos"] = text_box_y_pos;
     retVal["display_icon"] = display_icon;
-    retVal["next_message_id"] = to_hex(&next_message_id, sizeof(uint16_t));
+    retVal["next_message_id"] = next_message_id;
     retVal["first_item_rupees"] = first_item_rupees;
     retVal["first_item_rupees"] = first_item_rupees;
     retVal["second_item_rupees"] = second_item_rupees;
