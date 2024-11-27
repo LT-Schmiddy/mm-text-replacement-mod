@@ -13,6 +13,7 @@ public:
     ~TextEntry();
 
     ns::json to_json();
+    int prepare_buffer(char* p_message_buffer);
 
 private:
     uint16_t message_id = 0;

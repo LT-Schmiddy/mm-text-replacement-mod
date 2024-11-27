@@ -51,16 +51,30 @@ void startup() {
             uint16_t message_id = 0;
             utils::from_hex(it.key(), &message_id, sizeof(uint16_t));
 
-            std::cout << "Message ID: 0x" << it.key() << " -> " << std::to_string((unsigned int)message_id) << " -> 0x" << utils::to_hex(&message_id, sizeof(uint16_t)) << std::endl;
+            std::cout << "Loading Message ID: 0x" << it.key() 
+                << " -> " << std::to_string((unsigned int)message_id) 
+                // << " -> 0x" << utils::to_hex(&message_id, sizeof(uint16_t)) 
+                << std::endl;
+
+            global::text_map.emplace(message_id, TextEntry(message_id, it.value()));
         }
     }
 
-
-    // global::text_table = ns::json();
+    // For dumping:
+    global::dump_table = ns::json();
 }
 
+bool has_replacement(uint16_t p_message_id) {
+    return global::text_map.contains(p_message_id);
+}
 
+int prepare_replacement(uint16_t p_message_id) {
+    return global::text_map.at(p_message_id).prepare_buffer(global::message_buffer);
+}
 
+char get_replacement_char(uint32_t pos) {
+    return global::message_buffer[pos];
+}
 
 void shutdown() {}
 }

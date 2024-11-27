@@ -29,15 +29,15 @@ RECOMP_DLL_FUNC(text_replacer_lib_add_buffer_as_entry) {
 
 // Replacing:
 RECOMP_DLL_FUNC(text_replacer_lib_has_replacement) {
-    RECOMP_RETURN(s32, 1);
+    RECOMP_RETURN(s32, text_replacer_lib::has_replacement(RECOMP_ARG(0, uint16_t)));
 }
 
 RECOMP_DLL_FUNC(text_replacer_lib_prepare_replacement) {
-    RECOMP_RETURN(s32, 1);
+    RECOMP_RETURN(s32, text_replacer_lib::prepare_replacement(RECOMP_ARG(0, uint16_t)));
 }
 
 RECOMP_DLL_FUNC(text_replacer_lib_get_replacement_char) {
-    RECOMP_RETURN(s32, 1);
+    RECOMP_RETURN(char, text_replacer_lib::get_replacement_char(RECOMP_ARG(0, u32)));
 }
 
 // Shutdown

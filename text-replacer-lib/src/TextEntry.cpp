@@ -40,6 +40,8 @@ TextEntry::TextEntry(uint16_t p_message_id, ns::json data) {
     load_json_attr(data, "content", &content);
 }
 
+TextEntry::~TextEntry() {}
+
 ns::json TextEntry::to_json() {
     ns::json retVal;
 
@@ -55,8 +57,45 @@ ns::json TextEntry::to_json() {
     return retVal;
 }
 
-TextEntry::~TextEntry() {
+int TextEntry::prepare_buffer(char* p_message_buffer) {
+    // Handling Header:
+    memcpy(&p_message_buffer[0], &text_box_type, sizeof(uint8_t));
+    memcpy(&p_message_buffer[1], &text_box_y_pos, sizeof(uint8_t));
+    memcpy(&p_message_buffer[2], &display_icon, sizeof(uint8_t));
+    memcpy(&p_message_buffer[3], &next_message_id, sizeof(uint16_t));
+    memcpy(&p_message_buffer[5], &first_item_rupees, sizeof(uint16_t));
+    memcpy(&p_message_buffer[7], &second_item_rupees, sizeof(uint16_t));
 
+    // Handling Content:
+    int len = MESSAGE_HEADER_SIZE;
+    int pos = 0;
+    while (pos < content.size()) {
+        char c = content.at(pos);
+
+        if (c == '|') {
+            // Checking next character:
+            if (content.at(pos + 1) == '|') {
+                // Use a double pipe "||" to enter a "|"
+                p_message_buffer[len] = '|';
+                pos += 2;
+            } else {
+                // This is a byte representation
+                std::string byte_str = {content.at(pos + 1), content.at(pos + 2)};
+                char replace_char;
+                utils::from_hex(byte_str, &replace_char, sizeof(char));
+
+                p_message_buffer[len] = replace_char;
+                pos += 3;
+            }
+
+        } else {
+            p_message_buffer[len] = c;
+            pos++;
+        }
+
+        len++;
+    }
+    return len;
 }
 
 bool TextEntry::check_json_attr(ns::json* data, std::string name){

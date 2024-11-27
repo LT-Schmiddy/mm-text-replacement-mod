@@ -46,7 +46,7 @@ void from_hex(std::string p_str, void* p_bytes, int p_size) {
             }
         }
 
-        std::cout << c << " = " << std::to_string(val) << ", ";
+        // std::cout << c << " = " << std::to_string(val) << ", ";
 
         // Loading the value into position:
         int target_pos = (int)((str.size() - 1 - i)/2);

@@ -8,7 +8,7 @@ namespace global {
     // Dumping
     inline bool dumping_enabled = false;
     inline fs::path dump_path;
-    inline ns::json text_table;
+    inline ns::json dump_table;
 
     // Main stuff
     inline fs::path game_data_dir;
