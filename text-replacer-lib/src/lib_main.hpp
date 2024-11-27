@@ -1,3 +1,5 @@
+#pragma once
+
 #include <filesystem>
 namespace fs = std::filesystem;
 
@@ -8,10 +10,6 @@ void save_entries_json();
 
 void lib_shutdown();
 
-bool is_ascii(char c);
 
-template<typename T>
-std::string to_hex(T i);
-fs::path get_lib_path();
 
 

@@ -1,8 +1,12 @@
 target_sources(
     ${TARGET_NAME}
     PUBLIC
-    "./main.cpp"
-    "./main.hpp"
-    "./recomp_utils.cpp"
-    "./recomp_utils.hpp"
+    "./lib_main.cpp"
+    "./lib_main.hpp"
+    "./recomp_mod_api.cpp"
+    "./recomp_mod_api.hpp"
+    "./TextEntry.cpp"
+    "./TextEntry.hpp"
+    "./utils.cpp"
+    "./utils.hpp"
 )

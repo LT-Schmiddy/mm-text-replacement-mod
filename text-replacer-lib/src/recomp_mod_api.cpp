@@ -5,8 +5,8 @@
 // #include <stdlib.h>
 // #include <assert.h>
 
-#include "./main.hpp"
-#include "./recomp_utils.hpp"
+#include "./lib_main.hpp"
+#include "./recomp_mod_api.hpp"
 
 RECOMP_EXPORT extern "C" uint32_t recomp_api_version = RECOMP_API_VERSION;
 
