@@ -47,11 +47,11 @@ void startup() {
             std::cout << "Found " << entry.path().filename() << std::endl;
         }
 
-        ns::json root_replacement_json;
-        in_file >> root_replacement_json;
+        ns::json replacement_json;
+        in_file >> replacement_json;
         in_file.close();
 
-        for (auto it = root_replacement_json.begin(); it != root_replacement_json.end(); ++it) {
+        for (auto it = replacement_json.begin(); it != replacement_json.end(); ++it) {
             // std::cout << *it << '\n';
 
             uint16_t message_id = 0;

@@ -31,7 +31,7 @@ void handle_text_replacement(PlayState* play, u16 textId) {
         text_replacer_lib_dumping_add_buffer_as_entry(textId, msgCtx->msgLength);
     }
 
-
+    // Handled text replacement
     if (text_replacer_lib_has_replacement(textId)) {
         recomp_printf("Replacing text %d.\n", textId);
         s32 len = text_replacer_lib_prepare_replacement(textId);
@@ -42,7 +42,7 @@ void handle_text_replacement(PlayState* play, u16 textId) {
         msgCtx->msgLength = len;
     }
 
-    // Copied from Message_OpenText
+    // Copied from Message_OpenText, processing for message header.
     msgCtx->choiceNum = 0;
     msgCtx->textUnskippable = false;
     msgCtx->textboxEndType = TEXTBOX_ENDTYPE_00;
