@@ -23,7 +23,7 @@ TextEntry::TextEntry(uint16_t p_message_id, char* p_message_buffer, int p_len) {
             content.append(c_str);
         
         } else {
-            content.append("[" + utils::to_hex(&c, 1) + "]");
+            content.append("|" + utils::to_hex(&c, 1));
         }
     }
 }

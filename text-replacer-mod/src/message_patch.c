@@ -45,11 +45,11 @@ RECOMP_PATCH void Message_ContinueTextbox(PlayState* play, u16 textId) {
     func_80150A84(play);
 
     for (int i = 0; i < msgCtx->msgLength; i++) {
-        text_replacer_set_char_in_buffer(font->msgBuf.schar[i], i);
+        text_replacer_lib_set_char_in_buffer(font->msgBuf.schar[i], i);
         // recomp_printf("%c", font->msgBuf.schar[i]);
     }
 
-    text_replacer_add_buffer_as_entry(textId, msgCtx->msgLength);
+    text_replacer_lib_add_buffer_as_entry(textId, msgCtx->msgLength);
 
     msgCtx->msgMode = MSGMODE_TEXT_CONTINUING;
     msgCtx->stateTimer = 8;
@@ -71,3 +71,18 @@ RECOMP_PATCH void Message_ContinueTextbox(PlayState* play, u16 textId) {
         msgCtx->stateTimer = 1;
     }
 }
+
+//#include "tweak_globals.h"
+#include "message_patch.h"
+//void Message_OpenText(PlayState* play, u16 textId);
+//void Message_OpenText(PlayState* play, u16 textId);
+
+
+
+//RECOMP_CALLBACK("*", recomp_on_init) void load_lib () {
+//    text_replacer_lib_startup();
+//}
+
+void Message_FindMessage(PlayState* play, u16 textId);
+void Message_GrowTextbox(PlayState* play);
+void func_80150A84(PlayState* play);

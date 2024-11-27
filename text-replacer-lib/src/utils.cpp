@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <iostream>
 #include <windows.h>
 #include "utils.hpp"
 
@@ -18,7 +19,8 @@ bool is_ascii(char c) {
 std::string to_hex(void* bytes, int size) {
     std::string str;
     char* cbytes = (char*)bytes;
-    for (int i = 0; i < size; ++i) {
+    // for (int i = 0; i < size; ++i) {
+    for (int i = size - 1; i >= 0; i--) {
     char ch = cbytes[i];
         str.append(&_hex[(ch & 0xF0) >> 4], 1);
         str.append(&_hex[ch & 0xF], 1);
@@ -34,7 +36,7 @@ void from_hex(std::string p_str, void* p_bytes, int p_size) {
     });
     
     char* cbytes = (char*)p_bytes;
-    for (int i = 0; i < str.size(); ++i) {
+    for (int i = 0; i < str.size(); i++) {
         char c = str.at(i);
         // Determining value of the symbol:
         uint8_t val = 0;
@@ -44,20 +46,21 @@ void from_hex(std::string p_str, void* p_bytes, int p_size) {
             }
         }
 
+        std::cout << c << " = " << std::to_string(val) << ", ";
+
         // Loading the value into position:
-        uint8_t* target = (uint8_t*)(&cbytes[(int)(i/2)]);
+        int target_pos = (int)((str.size() - 1 - i)/2);
+        uint8_t* target = (uint8_t*)(&cbytes[target_pos]);
         if (i % 2 == 0) {
             // Upper:
-            uint8_t val = val << 4;
-            (*target) = val;
+            uint8_t shift = val << 4;
+            (*target) = shift;
         } else if (i % 2 == 1) {
             // Lower
             (*target) |= val;
         }
     }
 }
-
-
 
 fs::path get_lib_path() {
     char path[MAX_PATH];
