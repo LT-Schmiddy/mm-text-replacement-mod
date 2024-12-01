@@ -15,7 +15,7 @@ namespace global {
 
     // Main stuff
     inline fs::path game_data_dir;
-    inline fs::path dialog_replacement_dir;
+    inline fs::path text_replacement_dir;
     inline std::map<uint16_t, text_replacer_lib::TextEntry> text_map;
     inline char message_buffer[MESSAGE_BUFFER_SIZE];
 

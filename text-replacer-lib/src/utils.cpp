@@ -30,7 +30,15 @@ std::string to_hex(void* bytes, int size) {
 
  
 void from_hex(std::string p_str, void* p_bytes, int p_size) {
-    std::string str = p_str;
+    std::string str;
+    // Handling size check:
+    if ((float)(p_str.size()/2.0f) > (float)p_size) {
+        str = p_str.substr(p_str.size() - p_size*2, p_size*2);
+        std::cerr << "Warning: hex string '" << p_str << "' is too long for memory space of " 
+            << std::to_string(p_size) << " byte(s). Trimming to '" << str << "'.";
+    } else {
+        str = p_str;    
+    }
     std::transform(str.cbegin(), str.cend(), str.begin(), [](unsigned char c){
         return std::toupper(c);
     });
@@ -45,8 +53,6 @@ void from_hex(std::string p_str, void* p_bytes, int p_size) {
                 val = j;
             }
         }
-
-        // std::cout << c << " = " << std::to_string(val) << ", ";
 
         // Loading the value into position:
         int target_pos = (int)((str.size() - 1 - i)/2);

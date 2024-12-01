@@ -1,5 +1,6 @@
 #include <bit>
 #include "TextEntry.hpp"
+#include "globals.hpp"
 
 namespace text_replacer_lib {
 TextEntry::TextEntry(uint16_t p_message_id, char* p_message_buffer, int p_len) {
@@ -37,7 +38,7 @@ TextEntry::TextEntry(uint16_t p_message_id, ns::json data) {
     load_json_attr(data, "next_message_id", &next_message_id);
     load_json_attr(data, "first_item_rupees", &first_item_rupees);
     load_json_attr(data, "second_item_rupees", &second_item_rupees);
-    load_json_attr(data, "content", &content);
+    load_json_attr(data, "content", &content, false);
 }
 
 TextEntry::~TextEntry() {}
@@ -98,19 +99,14 @@ int TextEntry::prepare_buffer(char* p_message_buffer) {
     return len;
 }
 
-bool TextEntry::check_json_attr(ns::json* data, std::string name){
-    if(data->contains(name)) {
-        return true;
-    } else {
-        std::cerr << "ERROR: attribute '" << name << "' is missing from text entry '" << utils::to_hex(&message_id, sizeof(uint16_t)) << "'.\n";
-        std::cerr << "Default value used instead.\n";
-        return false;
-    }
-}
-
-template <typename T> bool TextEntry::load_json_attr(ns::json& data, std::string name, T* attr) {
+template <typename T> bool TextEntry::load_json_attr(ns::json& data, std::string name, T* attr, bool allow_hex_translation) {
     if(data.contains(name)) {
-        (*attr) = data[name].get<T>();
+        if (allow_hex_translation && data[name].is_string()) {
+            utils::from_hex(data[name].get<std::string>(), attr, sizeof(T));
+        } else {
+            (*attr) = data[name].get<T>();
+        }
+
         return true;
     } else {
         std::cerr << "ERROR: attribute '" << name << "' is missing from text entry '" << utils::to_hex(&message_id, sizeof(uint16_t)) << "'.\n";

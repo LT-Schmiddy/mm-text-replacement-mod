@@ -11,7 +11,7 @@ namespace text_replacer_lib {
             (*attr) = data[name].get<T>();
             return true;
         } else {
-            std::cerr << "ERROR: attribute '" << name << "' is missing from settings.\n";
+            std::cerr << "ERROR: attribute '" << name << "' is missing from settings.";
             std::cerr << "Default value used instead.\n";
             return false;
         }
@@ -21,15 +21,23 @@ namespace text_replacer_lib {
         std::ifstream in_file(file_path);
         
         if (!in_file.is_open()){
-            std::cout << "'text_replacer_settings.json' not found. Creating...\n";
+            std::cout << "'" + file_path.filename().string() + "' not found. Creating...\n";
             save_settings(p_settings, file_path);
 
             return;
         }
-
+        
         ns::json settings_json;
-        in_file >> settings_json;
-        in_file.close();
+        try {
+            in_file >> settings_json;
+            in_file.close();
+        }
+        catch (std::exception e) {
+            in_file.close();
+            std::cerr << "'" + file_path.filename().string() + "' is invalid. Using defaults...\n";
+            return;
+        } 
+        
 
         if (settings_json.empty()) {
             // PLOG_WARNING.printf("Settings file at '%s' was empty.", file_path.string().c_str());
@@ -37,6 +45,9 @@ namespace text_replacer_lib {
         }
 
         load_json_setting(settings_json, "dumping_enabled", &p_settings->dumping_enabled);
+        load_json_setting(settings_json, "prefer_hex_values", &p_settings->prefer_hex_values);
+        load_json_setting(settings_json, "text_dump_output", &p_settings->text_dump_output);
+        load_json_setting(settings_json, "text_replacement_dir", &p_settings->text_replacement_dir);
 
         // Loading settings category structs:
         
@@ -47,7 +58,9 @@ namespace text_replacer_lib {
 
         // Generating Json for settings category structs:
         settings_json["dumping_enabled"] = p_settings->dumping_enabled;
-
+        settings_json["prefer_hex_values"] = p_settings->prefer_hex_values;
+        settings_json["text_dump_output"] = p_settings->text_dump_output;
+        settings_json["text_replacement_dir"] = p_settings->text_replacement_dir;
 
         std::ofstream out_file(file_path);
         out_file << settings_json.dump(4);

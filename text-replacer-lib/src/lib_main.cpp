@@ -21,20 +21,35 @@ void startup() {
     global::game_data_dir = utils::get_lib_path().parent_path().parent_path();
 
     // Loading settings:
-    global::settings_path = fs::path(global::game_data_dir).append("text_replacer_settings.json");
+    global::settings_path = fs::path(global::game_data_dir).append(SETTINGS_FILE_NAME);
     load_settings(&global::settings, global::settings_path);
 
     // Setting dump path for text replacement.
-    global::dump_path = fs::path(global::game_data_dir).append("text_dump.json");
+    if (global::settings.text_dump_output.is_absolute()) {
+        global::dump_path = global::settings.text_dump_output;
+    } else {
+        global::dump_path = global::game_data_dir / global::settings.text_dump_output;
+    }
+    global::dump_table = ns::json();
 
-    // Processing text replacement files:
-    global::dialog_replacement_dir = fs::path(global::game_data_dir).append("text_replacement");;
-    if (!fs::exists(global::dialog_replacement_dir)) {
-        std::cout << global::dialog_replacement_dir.string().c_str() << "\n";
-        fs::create_directory(global::dialog_replacement_dir);
+    // Setting loading directory for text replacement.
+    if (global::settings.text_replacement_dir.is_absolute()) {
+        global::text_replacement_dir = global::settings.text_replacement_dir;
+    } else {
+        global::text_replacement_dir = global::game_data_dir / global::settings.text_replacement_dir;
     }
 
-    for (const auto & entry : fs::directory_iterator(global::dialog_replacement_dir)) {
+    if (!fs::exists(global::text_replacement_dir)) {
+        try {
+            fs::create_directory(global::text_replacement_dir);
+            std::cout << "Creating '" << global::text_replacement_dir.string().c_str() << "'\n";
+        } catch(std::exception e) {
+            std::cerr << "ERROR: Could not create '" << global::text_replacement_dir.string().c_str() << "'\n";
+        }
+    }
+
+    // Processing text replacement files:
+    for (const auto & entry : fs::directory_iterator(global::text_replacement_dir)) {
         if (entry.path().extension() != ".json") {
             continue;
         }
@@ -42,14 +57,21 @@ void startup() {
         std::ifstream in_file(entry.path());
         if (!in_file.is_open()){
             std::cerr << "ERROR: Could not open " << fs::relative(entry.path()) << std::endl;
-            return;
+            continue;
         } else {
             std::cout << "Found " << entry.path().filename() << std::endl;
         }
 
         ns::json replacement_json;
-        in_file >> replacement_json;
-        in_file.close();
+        try {
+            in_file >> replacement_json;
+            in_file.close();
+        }
+        catch (std::exception e) {
+            in_file.close();
+            std::cerr << "'" + entry.path().filename().string() + "' is invalid and will not be loaded.\n";
+            continue;
+        } 
 
         for (auto it = replacement_json.begin(); it != replacement_json.end(); ++it) {
             // std::cout << *it << '\n';
@@ -57,7 +79,7 @@ void startup() {
             uint16_t message_id = 0;
             utils::from_hex(it.key(), &message_id, sizeof(uint16_t));
 
-            std::cout << "Loading Message ID: 0x" << it.key() 
+            std::cout << "\tLoading Message ID: 0x" << it.key() 
                 << " -> " << std::to_string((unsigned int)message_id) 
                 // << " -> 0x" << utils::to_hex(&message_id, sizeof(uint16_t)) 
                 << std::endl;
@@ -66,8 +88,7 @@ void startup() {
         }
     }
 
-    // For dumping:
-    global::dump_table = ns::json();
+
 }
 
 bool has_replacement(uint16_t p_message_id) {
