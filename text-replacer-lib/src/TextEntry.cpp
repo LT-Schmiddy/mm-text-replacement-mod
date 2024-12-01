@@ -46,15 +46,13 @@ TextEntry::~TextEntry() {}
 ns::json TextEntry::to_json() {
     ns::json retVal;
 
-    retVal["text_box_type"] = text_box_type;
-    retVal["text_box_y_pos"] = text_box_y_pos;
-    retVal["display_icon"] = display_icon;
-    retVal["next_message_id"] = next_message_id;
-    retVal["first_item_rupees"] = first_item_rupees;
-    retVal["first_item_rupees"] = first_item_rupees;
-    retVal["second_item_rupees"] = second_item_rupees;
-    retVal["content"] = content;
-
+    set_json_attr(retVal, "text_box_type", &text_box_type);
+    set_json_attr(retVal, "text_box_y_pos", &text_box_y_pos);
+    set_json_attr(retVal, "display_icon", &display_icon);
+    set_json_attr(retVal, "next_message_id", &next_message_id);
+    set_json_attr(retVal, "first_item_rupees", &first_item_rupees);
+    set_json_attr(retVal, "second_item_rupees", &second_item_rupees);
+    set_json_attr(retVal, "content", &content, false);
     return retVal;
 }
 
@@ -98,6 +96,15 @@ int TextEntry::prepare_buffer(char* p_message_buffer) {
     }
     return len;
 }
+
+template <typename T> void TextEntry::set_json_attr(ns::json& data, std::string name, T* attr, bool allow_hex_translation) {
+    if (global::settings.prefer_hex_values && allow_hex_translation) {
+        data[name] = utils::to_hex(attr, sizeof(T));
+    } else {
+        data[name] = (*attr);
+    }
+}
+
 
 template <typename T> bool TextEntry::load_json_attr(ns::json& data, std::string name, T* attr, bool allow_hex_translation) {
     if(data.contains(name)) {

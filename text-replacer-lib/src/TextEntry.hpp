@@ -29,6 +29,7 @@ private:
     
     bool check_json_attr(ns::json* data, std::string name);
 
+    template <typename T> void set_json_attr(ns::json& data, std::string name, T* attr, bool allow_hex_translation = true);
     template <typename T> bool load_json_attr(ns::json& data, std::string name, T* attr, bool allow_hex_translation = true);
 
 };
