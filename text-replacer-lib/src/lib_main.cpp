@@ -16,7 +16,7 @@
 
 namespace text_replacer_lib {
 void startup() {
-    std::cout << "Hello from text-replacer-lib!\n";
+    std::cout << "Loaded text-replacer-lib!\n";
     // Gets us out of the mods folder:
     global::game_data_dir = utils::get_lib_path().parent_path().parent_path();
 
@@ -54,6 +54,7 @@ void startup() {
             continue;
         }
 
+        // Skipping if the file cannot be loaded or json is invalid.
         std::ifstream in_file(entry.path());
         if (!in_file.is_open()){
             std::cerr << "ERROR: Could not open " << fs::relative(entry.path()) << std::endl;
@@ -87,8 +88,6 @@ void startup() {
             global::text_map.emplace(message_id, TextEntry(message_id, it.value()));
         }
     }
-
-
 }
 
 bool has_replacement(uint16_t p_message_id) {

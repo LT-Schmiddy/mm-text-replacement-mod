@@ -47,10 +47,7 @@ namespace text_replacer_lib {
         load_json_setting(settings_json, "dumping_enabled", &p_settings->dumping_enabled);
         load_json_setting(settings_json, "prefer_hex_values", &p_settings->prefer_hex_values);
         load_json_setting(settings_json, "text_dump_output", &p_settings->text_dump_output);
-        load_json_setting(settings_json, "text_replacement_dir", &p_settings->text_replacement_dir);
-
-        // Loading settings category structs:
-        
+        load_json_setting(settings_json, "text_replacement_dir", &p_settings->text_replacement_dir);        
     }
 
     void save_settings(Settings* p_settings, fs::path file_path) {
